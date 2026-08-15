@@ -1,12 +1,12 @@
 {
   "name": "ediconnect",
   "version": "1.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "npx ng build --configuration production",
-    "watch": "ng build --watch --configuration development"
-  },
+ "scripts": {
+  "ng": "ng",
+  "start": "ng serve --proxy-config proxy.conf.json",
+  "build": "node ./node_modules/@angular/cli/bin/ng.js build --configuration production",
+  "watch": "ng build --watch --configuration development"
+},
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.3.0",
