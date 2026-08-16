@@ -14,7 +14,7 @@ import { ToastService } from '../../../core/services/toast.service';
       <div class="auth-card card">
         <div class="auth-logo">🏥</div>
         <h2>Welcome back</h2>
-        <p>Sign in to your ediConnect account</p>
+        <p>Sign in to your Doctor-desk account</p>
 
         @if (error) {
           <div class="alert alert-error">{{ error }}</div>
@@ -57,6 +57,11 @@ import { ToastService } from '../../../core/services/toast.service';
     p  { text-align: center; color: var(--text-2); font-size: 14px; margin-bottom: 24px; }
     .btn-block { margin-top: 8px; }
     .auth-footer { text-align: center; margin-top: 20px; font-size: 14px; color: var(--text-2); }
+    @media (max-width: 480px) {
+      .auth-page { padding: 16px; align-items: flex-start; padding-top: 32px; }
+      .auth-card { padding: 24px 16px; }
+      .auth-logo { font-size: 30px; }
+    }
   `]
 })
 export class LoginComponent {

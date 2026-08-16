@@ -144,7 +144,26 @@ import { RouterLink } from '@angular/router';
       .btn-primary { background: #fff; color: var(--primary); }
       .btn-ghost   { border-color: rgba(255,255,255,.5); color: #fff; &:hover { background: rgba(255,255,255,.1); } }
     }
-    @media (max-width: 640px) { .hero h1 { font-size: 2rem; } .step-arrow { display: none; } }
+    @media (max-width: 640px) {
+      .hero { padding: 36px 16px 32px; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 15px; }
+      .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+      .hero-actions a { text-align: center; justify-content: center; }
+      .hero-stats { gap: 16px; margin-top: 28px; padding-top: 20px; }
+      .hero-stats .stat strong { font-size: 20px; }
+      .step-arrow { display: none; }
+      .steps { gap: 16px; }
+      .step { max-width: 100%; }
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-card { padding: 18px; }
+      .how-section { padding: 32px 0; }
+      .cta-card { padding: 28px 18px; }
+    }
+    @media (max-width: 400px) {
+      .hero h1 { font-size: 1.7rem; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); display: grid; gap: 12px; }
+    }
   `]
 })
 export class HomeComponent {}

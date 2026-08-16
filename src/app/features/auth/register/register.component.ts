@@ -17,7 +17,7 @@ type Role = 'PATIENT' | 'DOCTOR' | 'AMBULANCE';
 
         <div class="auth-logo">🏥</div>
         <h2>Create your account</h2>
-        <p>Join MediConnect — Bihar's healthcare platform</p>
+        <p>Join Doctor-desk — Bihar's healthcare platform</p>
 
         @if (error)   { <div class="alert alert-error">{{ error }}</div> }
         @if (success) { <div class="alert alert-success">{{ success }}</div> }
@@ -286,7 +286,12 @@ type Role = 'PATIENT' | 'DOCTOR' | 'AMBULANCE';
 
     .section-label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--text-3); margin:16px 0 10px; border-top:1px solid var(--border); padding-top:14px; }
     .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    @media (max-width:520px) { .form-row { grid-template-columns:1fr; } }
+    @media (max-width:520px) {
+      .form-row { grid-template-columns:1fr; }
+      .auth-page { padding: 16px; align-items: flex-start; padding-top: 24px; }
+      .auth-card { padding: 24px 16px; }
+      .role-tab { font-size: 12px; padding: 9px 4px; }
+    }
     .btn-block { margin-top:12px; }
     .auth-footer { text-align:center; margin-top:20px; font-size:14px; color:var(--text-2); }
   `]

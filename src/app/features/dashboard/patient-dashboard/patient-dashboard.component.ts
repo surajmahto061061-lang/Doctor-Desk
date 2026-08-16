@@ -114,6 +114,37 @@ import { AvatarUploadComponent } from 'src/app/shared/components/AvatarUploadCom
     .chip-green { background:#EAF3DE; color:#3B6D11; border-color:#C0DD97; }
     .chip-blue  { background:#EBF4FF; color:#1A56DB; border-color:#BDD7F5; }
     .chip-amber { background:#FAEEDA; color:#854F0B; border-color:#FAC775; }
+
+    @media (max-width: 640px) {
+      /* Page header — avatar + name stack nicely */
+      .page-header > div:first-child { display: flex; align-items: center; gap: 12px; flex: 1; }
+
+      /* Stat cards — 2x2 grid */
+      .grid-4 { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+
+      /* Appointment item — full column layout */
+      .appt-item {
+        flex-direction: column !important;
+        gap: 10px !important;
+        padding: 12px !important;
+        align-items: flex-start !important;
+      }
+      .appt-item-actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      .appt-item-actions .btn { flex: 1; justify-content: center; min-width: 100px; }
+
+      /* Action bar — stack on small screens */
+      .action-bar { flex-direction: column; align-items: stretch; }
+      .action-bar h3 { margin-bottom: 4px; }
+      .action-bar a { text-align: center; }
+
+      /* Pagination compact */
+      .pagination { gap: 10px; }
+      .pagination .btn { padding: 7px 12px; font-size: 13px; }
+    }
   `]
 })
 export class PatientDashboardComponent implements OnInit {

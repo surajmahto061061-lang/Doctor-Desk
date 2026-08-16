@@ -274,9 +274,73 @@ app-toast { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: 
 
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 640px) {
-  .page-container { padding: 16px; }
-  h1 { font-size: 1.5rem; }
+  .page-container { padding: 12px; }
+  h1 { font-size: 1.4rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1rem; }
   .stat-value { font-size: 22px; }
+
+  /* Stat cards — 2 columns on mobile */
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .grid-2 { grid-template-columns: 1fr; gap: 10px; }
+
+  /* Stat card smaller padding */
+  .stat-card { padding: 12px; }
+  .stat-card .stat-value { font-size: 22px; }
+
+  /* Appointment items — stack vertically on mobile */
+  .appt-item {
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    &-actions { width: 100%; justify-content: flex-start; }
+    &-info { width: 100%; }
+  }
+
+  /* Buttons full-width on mobile in certain contexts */
+  .page-header { flex-direction: column; align-items: flex-start !important; gap: 12px; }
+
+  /* Table — horizontal scroll on mobile */
+  .table-wrap { border-radius: var(--radius); }
+  table th, table td { padding: 10px 12px; font-size: 13px; }
+
+  /* Modal — full screen on mobile */
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+    .modal-box {
+      max-width: 100%;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      max-height: 92vh;
+      padding: 20px 16px;
+    }
+  }
+
+  /* Cards smaller padding */
+  .card { padding: 14px; }
+  .card-header { padding-bottom: 10px; margin-bottom: 10px; }
+
+  /* Btn adjustments */
+  .btn-lg { padding: 10px 18px; font-size: 15px; }
+
+  /* Empty state compact */
+  .empty-state { padding: 40px 16px; }
+
+  /* Toast — bottom of screen full width */
+  app-toast { bottom: 12px; right: 12px; left: 12px; }
+
+  /* Date tabs — scrollable */
+  .date-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .date-tabs::-webkit-scrollbar { display: none; }
+}
+
+@media (max-width: 480px) {
+  .page-container { padding: 10px; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .stat-card { padding: 10px; }
+  .stat-card .stat-value { font-size: 20px; }
+  .badge { font-size: 11px; padding: 2px 8px; }
 }
 
 /* ── Badge additions ─────────────────────────── */

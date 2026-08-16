@@ -115,7 +115,26 @@ import { AvatarUploadComponent } from '../AvatarUploadComponent';
     .hamburger { display: none; flex-direction: column; gap: 4px; background: none; border: none; cursor: pointer; padding: 6px; span { display: block; width: 22px; height: 2px; background: var(--text-2, #6b7280); border-radius: 2px; transition: all .2s; } &.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); } &.open span:nth-child(2) { opacity: 0; } &.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); } }
     @media (max-width: 768px) {
       .hamburger { display: flex; margin-left: auto; }
-      .nav-links { display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0; background: var(--surface, #fff); flex-direction: column; align-items: flex-start; padding: 16px; gap: 4px; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,.1); z-index: 200; &.open { display: flex; } .nav-link { width: 100%; padding: 10px 12px; font-size: 15px; } .nav-auth, .nav-user { margin-left: 0; flex-wrap: wrap; padding: 8px 0; } .nav-divider { width: 100%; height: 1px; margin: 6px 0; } }
+      .nav-links {
+        display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+        background: var(--surface, #fff); flex-direction: column; align-items: flex-start;
+        padding: 12px 16px 32px; gap: 2px; overflow-y: auto;
+        box-shadow: 0 4px 20px rgba(0,0,0,.1); z-index: 200;
+        &.open { display: flex; }
+        .nav-link { width: 100%; padding: 12px 14px; font-size: 15px; border-radius: 8px; }
+        .nav-divider { width: 100%; height: 1px; margin: 8px 0; }
+        .nav-auth {
+          margin-left: 0; flex-direction: column; width: 100%; padding: 10px 0 0; gap: 8px;
+          a { width: 100%; justify-content: center; padding: 11px 18px; font-size: 15px; }
+        }
+        .nav-user {
+          margin-left: 0; flex-direction: column; align-items: flex-start;
+          width: 100%; padding: 10px 0 0; gap: 10px;
+          .user-chip { padding: 10px 14px; background: var(--surface-2); border-radius: 10px; width: 100%; }
+          .user-name { max-width: none; font-size: 15px; }
+          button { width: 100%; justify-content: center; padding: 11px 18px; font-size: 15px; }
+        }
+      }
     }
   `]
 })

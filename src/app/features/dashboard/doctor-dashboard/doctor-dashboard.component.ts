@@ -1046,6 +1046,76 @@ type DoctorProfile = Doctor;
     .leaving-today { color:#B54708; font-weight:600; }
     .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); display:flex; align-items:center; justify-content:center; z-index:1000; padding:16px; }
     .modal { background:var(--surface); border-radius:var(--radius); padding:24px; width:min(420px, 95vw); box-shadow:0 10px 40px rgba(0,0,0,.2); }
+
+    /* ── Mobile responsive ── */
+    @media (max-width: 640px) {
+      /* Dashboard header */
+      .dash-header { flex-direction: column; align-items: flex-start; }
+      .header-actions { width: 100%; }
+      .header-actions .btn { flex: 1; justify-content: center; }
+
+      /* Tab nav — horizontally scrollable */
+      .tab-nav {
+        flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+        padding-bottom: 0; gap: 0;
+        &::-webkit-scrollbar { display: none; }
+      }
+      .tab-btn { white-space: nowrap; padding: 10px 13px; font-size: 13px; }
+
+      /* Tab toolbar — stack */
+      .tab-toolbar { flex-direction: column; align-items: stretch; }
+      .tab-toolbar .btn { text-align: center; justify-content: center; }
+
+      /* Stat cards — 2x2 */
+      .grid-4, .bed-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+
+      /* Appointment item — column */
+      .appt-item {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+        padding: 12px !important;
+      }
+      .appt-item-actions {
+        width: 100%; justify-content: flex-start; flex-wrap: wrap;
+      }
+      .appt-item-actions .btn { flex: 1; justify-content: center; min-width: 80px; }
+
+      /* Patient grid — single column */
+      .patient-grid { grid-template-columns: 1fr; }
+
+      /* Bed grid — 1 column */
+      .bed-grid { grid-template-columns: 1fr; }
+
+      /* Form grids — single column */
+      .form-grid { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+
+      /* Modal — slide up from bottom */
+      .modal-overlay { padding: 0; align-items: flex-end; }
+      .modal {
+        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        width: 100%; max-height: 90vh; overflow-y: auto;
+        padding: 20px 16px 32px;
+      }
+      .modal-wide { width: 100%; }
+
+      /* KYC banners */
+      .kyc-success-banner, .kyc-info-banner, .kyc-error-banner {
+        flex-direction: column; gap: 8px;
+      }
+
+      /* Pending card */
+      .pending-card { padding: 28px 20px; }
+
+      /* Vitals row — wrap */
+      .vitals-row { gap: 6px; }
+    }
+
+    @media (max-width: 400px) {
+      .tab-btn { padding: 9px 10px; font-size: 12px; }
+      .bed-stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
   `]
 })
 export class DoctorDashboardComponent implements OnInit {
