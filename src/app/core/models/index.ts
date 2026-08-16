@@ -255,7 +255,11 @@ export interface AppointmentResponse {
   doctorName: string;
   specialization?: string;
   clinicAddress?: string;
-  appointmentTime: string;
+  // Backend sends date and start/end time as separate fields, not a single
+  // combined "appointmentTime" — use apptDateTime() helper to combine for display.
+  appointmentDate: string;
+  startTime?: string;
+  endTime?: string;
   durationMinutes?: number;
   status: AppointmentStatus;
   fee?: number;

@@ -44,7 +44,7 @@ import { AvatarUploadComponent } from 'src/app/shared/components/AvatarUploadCom
               <div class="appt-item-info">
                 <div class="appt-item-name">{{ a.doctorName || 'Doctor' }}</div>
                 <div class="appt-item-meta">
-                  📅 {{ a.appointmentTime | date:'dd MMM yyyy, hh:mm a' }}
+                  📅 {{ apptDateTime(a) | date:'dd MMM yyyy, hh:mm a' }}
                 </div>
                 <div class="appt-item-sub">
                   @if (a.specialization) { <span class="chip">{{ a.specialization }}</span> }
@@ -187,5 +187,12 @@ export class PatientDashboardComponent implements OnInit {
 
   doctorInitials(a: Appointment): string {
     return (a.doctorName || 'DR').split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase();
+  }
+
+  // Backend appointmentDate + startTime alag-alag bhejta hai (koi combined
+  // "appointmentTime" field nahi hai) — display ke liye combine karo.
+  apptDateTime(a: any): Date | null {
+    if (!a?.appointmentDate) return null;
+    return new Date(`${a.appointmentDate}T${a.startTime || '00:00'}`);
   }
 }

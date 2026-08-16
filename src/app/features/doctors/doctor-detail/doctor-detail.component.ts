@@ -297,10 +297,14 @@ export class DoctorDetailComponent implements OnInit {
           time:      slot.time || this.formatTime(slot.startTime),
           available: slot.available ?? (slot.isAvailable === true && slot.isBooked !== true)
         }));
-        if (!this.slots.length) this.slots = this.demoSlots();
+        // FIX: previously fell back to demoSlots() (fake placeholder times with
+        // no real `id`) whenever the doctor had zero real slots for the date.
+        // Patient could select a fake slot and book it — slotId ended up
+        // undefined, and the backend rejected with "Slot ID is required".
+        // Now we just show the real empty state instead of fake bookable data.
         this.slotsLoading = false;
       },
-      error: () => { this.slots = this.demoSlots(); this.slotsLoading = false; }
+      error: () => { this.slots = []; this.slotsLoading = false; }
     });
   }
 
@@ -317,11 +321,6 @@ export class DoctorDetailComponent implements OnInit {
     const mer = h >= 12 ? 'PM' : 'AM';
     if (h > 12) h -= 12; if (h === 0) h = 12;
     return `${String(h).padStart(2,'0')}:${m} ${mer}`;
-  }
-
-  demoSlots(): TimeSlot[] {
-    const times = ['09:00 AM','09:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','02:00 PM','02:30 PM','03:00 PM','03:30 PM','04:00 PM','04:30 PM'];
-    return times.map((t, i) => ({ time: t, available: ![1,3,7].includes(i), isBooked: [1,3,7].includes(i) }));
   }
 
   selectSlot(slot: TimeSlot) { if (!slot.available) return; this.selectedSlot = slot.time || ''; }

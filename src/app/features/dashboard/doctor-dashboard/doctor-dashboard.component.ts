@@ -852,7 +852,7 @@ type DoctorProfile = Doctor;
                 <div class="appt-item-info">
                   <div class="appt-item-name">{{ a.patientName }}</div>
                   <div class="appt-item-meta">
-                    📅 {{ a.appointmentTime | date:'dd MMM, hh:mm a' }}
+                    📅 {{ apptDateTime(a) | date:'dd MMM, hh:mm a' }}
                     @if (a.clinicAddress) { · 📍 {{ a.clinicAddress }} }
                   </div>
                   <div class="appt-item-sub">
@@ -1220,7 +1220,7 @@ export class DoctorDashboardComponent implements OnInit {
           if (!a.patientId) continue;
           const existing = map.get(a.patientId);
           if (!existing) {
-            map.set(a.patientId, { patientId: a.patientId, patientName: a.patientName, patientPhone: a.patientPhone, totalVisits: 1, lastVisit: a.appointmentTime?.slice(0,10) || '', lastDiagnosis: a.patientDisease });
+            map.set(a.patientId, { patientId: a.patientId, patientName: a.patientName, patientPhone: a.patientPhone, totalVisits: 1, lastVisit: a.appointmentDate || '', lastDiagnosis: a.patientDisease });
           } else {
             existing.totalVisits++;
           }
@@ -1443,6 +1443,15 @@ export class DoctorDashboardComponent implements OnInit {
 
   patientInitials(a: Appointment): string {
     return (a.patientName || 'PT').split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase();
+  }
+
+  // Backend appointmentDate + startTime alag-alag bhejta hai (koi combined
+  // "appointmentTime" field nahi hai) — display ke liye combine karo. Isse
+  // pehle template seedha a.appointmentTime padhta tha jo backend kabhi
+  // bhejta hi nahi, isliye date/time hamesha blank dikhta tha.
+  apptDateTime(a: any): Date | null {
+    if (!a?.appointmentDate) return null;
+    return new Date(`${a.appointmentDate}T${a.startTime || '00:00'}`);
   }
 
   loadMyQr() {
