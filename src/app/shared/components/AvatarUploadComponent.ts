@@ -2,6 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { environment } from '../../../environments/environment';
 
 
 // Reusable avatar — photo dikhata hai agar hai, warna naam ka pehla letter
@@ -84,11 +85,18 @@ export class AvatarUploadComponent {
     return colors[n.charCodeAt(0) % colors.length];
   }
 
-  // Backend "/uploads/..." relative path deta hai — dev proxy isse forward
-  // karta hai, isliye seedha use kar sakte hai (production mein bhi same
-  // origin se serve hoga agar reverse-proxy configured hai)
+  // Backend "/uploads/..." relative path deta hai. Dev me proxy isse forward
+  // kar deta hai, LEKIN production me frontend (Vercel) aur backend (Railway)
+  // alag-alag domains pe hain — same-origin assumption yahan galat thi, isliye
+  // relative path browser me frontend domain ke against resolve ho raha tha
+  // aur photo 404 de rahi thi. Fix: backend origin explicitly prepend karo.
   get fullImageUrl(): string {
-    return this.imageUrl || '';
+    if (!this.imageUrl) return '';
+    if (this.imageUrl.startsWith('http://') || this.imageUrl.startsWith('https://')) {
+      return this.imageUrl; // already absolute
+    }
+    const backendOrigin = environment.apiUrl.replace(/\/api\/?$/, '');
+    return backendOrigin + this.imageUrl;
   }
 
   onFileSelected(event: Event) {
