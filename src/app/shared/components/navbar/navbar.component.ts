@@ -116,23 +116,36 @@ import { AvatarUploadComponent } from '../AvatarUploadComponent';
     @media (max-width: 768px) {
       .hamburger { display: flex; margin-left: auto; }
       .nav-links {
-        display: none; position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
-        background: var(--surface, #fff); flex-direction: column; align-items: flex-start;
-        padding: 12px 16px 32px; gap: 2px; overflow-y: auto;
-        box-shadow: 0 4px 20px rgba(0,0,0,.1); z-index: 200;
-        &.open { display: flex; }
-        .nav-link { width: 100%; padding: 12px 14px; font-size: 15px; border-radius: 8px; }
+        display: none;
+        &.open {
+          display: flex;
+          position: fixed; top: 60px; left: 0; right: 0; bottom: 0;
+          background: var(--surface, #fff);
+          flex-direction: column; align-items: flex-start;
+          padding: 12px 16px 40px; gap: 2px;
+          overflow-y: auto;
+          box-shadow: 0 4px 20px rgba(0,0,0,.1);
+          z-index: 200;
+        }
+        .nav-link {
+          width: 100%; padding: 12px 14px; font-size: 15px; border-radius: 8px;
+        }
         .nav-divider { width: 100%; height: 1px; margin: 8px 0; }
         .nav-auth {
-          margin-left: 0; flex-direction: column; width: 100%; padding: 10px 0 0; gap: 8px;
-          a { width: 100%; justify-content: center; padding: 11px 18px; font-size: 15px; }
+          margin-left: 0; width: 100%; padding: 8px 0; gap: 8px;
+          display: flex; flex-direction: column;
+          a { width: 100%; text-align: center; justify-content: center; padding: 12px 18px; font-size: 15px; }
         }
         .nav-user {
-          margin-left: 0; flex-direction: column; align-items: flex-start;
-          width: 100%; padding: 10px 0 0; gap: 10px;
-          .user-chip { padding: 10px 14px; background: var(--surface-2); border-radius: 10px; width: 100%; }
+          margin-left: 0; width: 100%; padding: 8px 0;
+          display: flex; flex-direction: column; gap: 10px;
+          .user-chip {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px; background: var(--surface-2, #f3f4f6);
+            border-radius: 10px; width: 100%;
+          }
           .user-name { max-width: none; font-size: 15px; }
-          button { width: 100%; justify-content: center; padding: 11px 18px; font-size: 15px; }
+          button { width: 100%; justify-content: center; padding: 12px; font-size: 15px; }
         }
       }
     }
