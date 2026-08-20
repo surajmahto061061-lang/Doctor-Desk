@@ -1594,21 +1594,30 @@ export class DoctorDashboardComponent implements OnInit {
     this.kycLoading = true;
     this.bankSvc.submitBankDetails(this.bankForm).subscribe({
       next: r => {
-        // Backend Razorpay penny-drop se turant verify karta hai —
-        // response ko ACTIVATED force karo aur submitted fields merge karo
-        // taaki doctor ko unka data wapas dikh sake
+        // Backend jo actual kycStatus bheje wahi use karo — pehle yahan force
+        // 'ACTIVATED' set hota tha chahe backend kuch bhi bheje, jisse account
+        // conflict/recovery jaise cases mein bhi galat "verified" dikh jaata tha.
         const merged = {
           ...(r.data || {}),
-          kycStatus:         'ACTIVATED',
           accountHolderName: this.bankForm.accountHolderName,
           ifscCode:          this.bankForm.ifscCode,
           bankName:          this.bankForm.bankName,
           upiId:             this.bankForm.upiId || r.data?.upiId,
-          // maskedAccountNumber — last 4 digits dikhao
           maskedAccountNumber: '••••' + this.bankForm.accountNumber.slice(-4),
         };
         this.kycDetails = merged;
-        this.toast.success('✅ Bank account verified! Payments ab automatically aapke account mein aayenge.');
+
+        // Top toggle ko turant sync karo — backend response mein doctorAvailable
+        // aata hai, isliye ab profile ko dobara fetch karne ki zaroorat nahi.
+        if (this.profile && r.data?.doctorAvailable !== undefined) {
+          this.profile.available = r.data.doctorAvailable;
+        }
+
+        if (r.data?.kycStatus === 'ACTIVATED') {
+          this.toast.success('✅ Bank account verified! Payments ab automatically aapke account mein aayenge.');
+        } else {
+          this.toast.success(r.data?.kycMessage || 'Bank details submit ho gayi — status check karein.');
+        }
         this.kycLoading = false;
       },
       error: (e: any) => {
@@ -1623,6 +1632,9 @@ export class DoctorDashboardComponent implements OnInit {
     this.bankSvc.refreshKycStatus().subscribe({
       next: r => {
         this.kycDetails = r.data;
+        if (this.profile && r.data?.doctorAvailable !== undefined) {
+          this.profile.available = r.data.doctorAvailable;
+        }
         if (r.data?.kycStatus === 'ACTIVATED') {
           this.toast.success('KYC Activated! Payments will now auto-split to your account.');
         } else {

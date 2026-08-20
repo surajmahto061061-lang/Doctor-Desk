@@ -736,7 +736,6 @@ export interface BankDetailsRequest {
 
 export type KycStatus = 'NOT_STARTED' | 'PENDING' | 'NEEDS_CLARIFICATION' | 'ACTIVATED' | 'REJECTED';
 
-// Matches BankDetailsResponse.java — GET /api/doctors/bank-details/me
 export interface BankDetailsResponse {
   id?: number;
   accountHolderName?: string;
@@ -747,6 +746,7 @@ export interface BankDetailsResponse {
   kycStatus: KycStatus;
   kycMessage?: string;
   kycUpdatedAt?: string;
+  doctorAvailable?: boolean;
 }
 
 // legacy alias kept for any older component references
