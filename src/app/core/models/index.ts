@@ -136,6 +136,9 @@ export interface Doctor {
   rating?: number;
   totalReviews?: number;
   available?: boolean;
+  // True sirf jab doctor ki Razorpay KYC ACTIVATED ho — false hone par patient ko
+  // 'KYC Pending' badge dikhao aur booking allow mat karo, chahe `available` bhi true ho.
+  kycActivated?: boolean;
   approvalStatus?: 'PENDING' | 'APPROVED' | 'REJECTED';
   education?: string;
   languages?: string;
@@ -255,11 +258,7 @@ export interface AppointmentResponse {
   doctorName: string;
   specialization?: string;
   clinicAddress?: string;
-  // Backend sends date and start/end time as separate fields, not a single
-  // combined "appointmentTime" — use apptDateTime() helper to combine for display.
-  appointmentDate: string;
-  startTime?: string;
-  endTime?: string;
+  appointmentTime: string;
   durationMinutes?: number;
   status: AppointmentStatus;
   fee?: number;

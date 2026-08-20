@@ -8,11 +8,13 @@ import { BookingService } from '../../../core/services/booking.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { Doctor, TimeSlot } from '../../../core/models';
+import { WhatsappConfirmModalComponent } from 'src/app/shared/components/whatsapp-confirm-modal/WhatsappConfirmModalComponent.components';
+
 
 @Component({
   selector: 'app-doctor-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, WhatsappConfirmModalComponent],
   template: `
     <div class="page-container">
       <button class="btn btn-ghost btn-sm mb-16" (click)="router.navigate(['/doctors'])">← Back to doctors</button>
@@ -171,6 +173,13 @@ import { Doctor, TimeSlot } from '../../../core/models';
         </div>
       </div>
     }
+
+    @if (showWhatsappModal && confirmedAppt) {
+      <app-whatsapp-confirm-modal
+        [appointment]="confirmedAppt"
+        (close)="closeWhatsappModal()">
+      </app-whatsapp-confirm-modal>
+    }
   `,
   styles: [`
     .mb-16 { margin-bottom: 16px; }
@@ -228,6 +237,8 @@ export class DoctorDetailComponent implements OnInit {
   patientDisease = '';
   showModal      = false;
   bookingLoading = false;
+  showWhatsappModal = false;
+  confirmedAppt: any = null;
   dates: { value: string; label: string; short: string }[] = [];
   private doctorId = 0;
 
@@ -382,7 +393,7 @@ export class DoctorDetailComponent implements OnInit {
                   razorpayPaymentId: paymentResponse.razorpay_payment_id,
                   razorpaySignature: paymentResponse.razorpay_signature
                 }).subscribe({
-                  next: () => this.done(),
+                  next: (res: any) => this.done(res?.data),
                   error: () => { this.toast.error('Payment verification failed'); this.bookingLoading = false; }
                 });
               },
@@ -426,9 +437,22 @@ export class DoctorDetailComponent implements OnInit {
     return `${date}T${String(hours).padStart(2,'0')}:${String(minutes||0).padStart(2,'0')}:00`;
   }
 
-  private done() {
+  private done(appt?: any) {
     this.bookingLoading = false; this.showModal = false;
     this.toast.success('Appointment booked & payment successful!');
+
+    // AppointmentResponse mil gaya to WhatsApp confirmation popup dikhao (dashboard
+    // par navigate karne se pehle) — user WhatsApp pe bhejna chahe to bhej sake.
+    if (appt) {
+      this.confirmedAppt = appt;
+      this.showWhatsappModal = true;
+    } else {
+      this.router.navigate(['/dashboard']);
+    }
+  }
+
+  closeWhatsappModal() {
+    this.showWhatsappModal = false;
     this.router.navigate(['/dashboard']);
   }
 }

@@ -73,9 +73,12 @@ import { Doctor } from '../../../core/models';
                 </div>
                 <!-- BUG FIX: badge correctly shows Available/Unavailable for ALL doctors in the list.
                      Previously an old client-side filter was hiding unavailable doctors entirely.
-                     Now ALL approved doctors show with the right availability badge. -->
-                <span class="badge" [class]="doc.available !== false ? 'badge-green' : 'badge-gray'">
-                  {{ doc.available !== false ? 'Available' : 'Unavailable' }}
+                     Now ALL approved doctors show with the right availability badge.
+                     Also: KYC not activated ka matlab hai booking allow nahi hai, chahe doctor
+                     ne khud ko 'available' toggle kar rakha ho — isliye specific badge dikhao. -->
+                <span class="badge"
+                  [class]="!doc.kycActivated ? 'badge-amber' : (doc.available !== false ? 'badge-green' : 'badge-gray')">
+                  {{ !doc.kycActivated ? 'KYC Pending' : (doc.available !== false ? 'Available' : 'Unavailable') }}
                 </span>
               </div>
               <div class="doc-meta">

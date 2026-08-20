@@ -6,13 +6,14 @@ import { PublicBookingService } from '../../core/services/public-booking.service
 import { ToastService } from '../../core/services/toast.service';
 import { SlotService } from '../../core/services/slot.service';
 import { SlotResponse, GuestBookingVerifyRequest } from '../../core/models';
+import { WhatsappConfirmModalComponent } from '../../shared/components/whatsapp-confirm-modal/whatsapp-confirm-modal.component';
 
 declare var Razorpay: any;
 
 @Component({
   selector: 'app-public-booking',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, WhatsappConfirmModalComponent],
   template: `
     <div class="page-container">
       <div class="page-header">
@@ -112,6 +113,13 @@ declare var Razorpay: any;
         }
       }
 
+      @if (showWhatsappModal && confirmedAppt) {
+        <app-whatsapp-confirm-modal
+          [appointment]="confirmedAppt"
+          (close)="showWhatsappModal = false">
+        </app-whatsapp-confirm-modal>
+      }
+
       @if (tab === 'track') {
         <div class="form-card">
           <h3 style="margin-bottom:20px">Track Your Appointment</h3>
@@ -199,6 +207,7 @@ export class PublicBookingComponent implements OnInit {
   saving = false;
   confirmedAppt: any = null;
   paymentDone = false;
+  showWhatsappModal = false;
   doctorIdLockedFromQr = false;
 
   form: any = { patientName: '', patientPhone: '', patientAge: null, patientEmail: '', doctorId: null, slotTime: '', slotId: null, notes: '' };
@@ -302,6 +311,7 @@ export class PublicBookingComponent implements OnInit {
                 if (vRes.success && vRes.data) {
                   this.confirmedAppt = vRes.data;
                   this.paymentDone = true;
+                  this.showWhatsappModal = true;
                   this.toast.success('✅ Booked! Token #' + vRes.data.tokenNumber);
                 } else {
                   this.toast.error('Payment verify nahi ho saka.');
