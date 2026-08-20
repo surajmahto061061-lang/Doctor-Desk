@@ -8,7 +8,7 @@ import { BookingService } from '../../../core/services/booking.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { Doctor, TimeSlot } from '../../../core/models';
-import { WhatsappConfirmModalComponent } from 'src/app/shared/components/whatsapp-confirm-modal/WhatsappConfirmModalComponent.components';
+import { WhatsappConfirmModalComponent } from 'src/app/shared/components/whatsapp-confirm-modal/whatsapp-confirm-modal.component';
 
 
 @Component({

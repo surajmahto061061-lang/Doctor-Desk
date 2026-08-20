@@ -6,7 +6,8 @@ import { PublicBookingService } from '../../core/services/public-booking.service
 import { ToastService } from '../../core/services/toast.service';
 import { SlotService } from '../../core/services/slot.service';
 import { SlotResponse, GuestBookingVerifyRequest } from '../../core/models';
-import { WhatsappConfirmModalComponent } from '../../shared/components/whatsapp-confirm-modal/whatsapp-confirm-modal.component';
+import { WhatsappConfirmModalComponent } from 'src/app/shared/components/whatsapp-confirm-modal/whatsapp-confirm-modal.component';
+
 
 declare var Razorpay: any;
 
