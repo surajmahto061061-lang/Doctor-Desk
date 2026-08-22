@@ -81,7 +81,7 @@ import { AvatarUploadComponent } from '../AvatarUploadComponent';
     </nav>
   `,
   styles: [`
-    .brand-icon-img { height: 26px; width: 26px; object-fit: contain; border-radius: 6px; }
+    .brand-icon-img { height: 60px; width: 40px; object-fit: contain; border-radius: 6px; }
     .navbar {
       position: sticky; top: 0; z-index: 100;
       background: var(--surface, #fff); border-bottom: 1px solid var(--border, #e5e7eb);
