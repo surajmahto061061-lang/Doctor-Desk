@@ -85,7 +85,12 @@ import { AvatarUploadComponent } from '../AvatarUploadComponent';
     .navbar {
       position: sticky; top: 0; z-index: 100;
       background: var(--surface, #fff); border-bottom: 1px solid var(--border, #e5e7eb);
-      backdrop-filter: blur(8px);
+      /* backdrop-filter hata diya — kisi bhi element par backdrop-filter/transform/filter
+         lagne se wo ek naya "containing block" ban jaata hai, jiske andar koi bhi
+         child position:fixed ab poori viewport ke against nahi, balki isi navbar
+         (60px height) ke against fixed hota hai. Mobile menu (.nav-links.open
+         niche) isi wajah se poori screen cover karne ki jagah ek chhote,
+         squished box jaisa dikh raha tha. */
     }
     .nav-inner {
       max-width: 1280px; margin: 0 auto; padding: 0 20px;
